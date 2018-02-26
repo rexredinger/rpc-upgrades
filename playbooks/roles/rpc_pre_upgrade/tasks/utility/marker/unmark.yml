@@ -1,4 +1,3 @@
-
 ---
 # Copyright 2018, Rackspace US, Inc.
 #
@@ -17,14 +16,11 @@
 # Marking requires a String argument, {{ marker }}, defining the name of
 # the marker file to destroy.
 
-- name: Remove marker file
-  user: root
-  tasks:
-    - file:
-        path: "{{ marker_dir }}"
-        state: directory
-        owner: root
-        mode: 0644
-    - file:
-        path: "{{ marker_dir }}/{{ marker }}.complete"
-        state: absent 
+- file:
+    path: "{{ marker_dir }}"
+    state: directory
+    owner: root
+    mode: 0644
+- file:
+    path: "{{ marker_dir }}/{{ marker }}.complete"
+    state: absent 

@@ -16,16 +16,13 @@
 # Marking requires a String argument, {{ marker }}, defining the name of
 # the marker file to create.
 
-- name: Set marker file
-  user: root
-  tasks:
-    - file:
-        path: "{{ marker_dir }}"
-        state: directory
-        owner: root
-        mode: 0644
-    - file:
-        path: "{{ marker_dir }}/{{ marker }}.complete"
-        state: touch
-        owner: root
-        mode: 0644
+- file:
+    path: "{{ marker_dir }}"
+    state: directory
+    owner: root
+    mode: 0644
+- file:
+    path: "{{ marker_dir }}/{{ marker }}.complete"
+    state: touch
+    owner: root
+    mode: 0644

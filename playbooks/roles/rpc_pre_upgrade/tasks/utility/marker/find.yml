@@ -22,4 +22,4 @@
     path: "{{ marker_dir }}/{{ marker }}.complete"
     register: completion_marker
 
-- set_fact: "{{ marker }}"="{{ completion_marker.stat.exists }}"
+- set_fact: "{{ marker }}={{ completion_marker.stat.exists }}"
