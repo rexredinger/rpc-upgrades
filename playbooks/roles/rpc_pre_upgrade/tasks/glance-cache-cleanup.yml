@@ -13,26 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+- inlcude: utility/marker/mark.yml
+  vars:
+    marker: "glance_cache_cleanup"
+
 - name: Stop Glance services
   hosts: glance_all
   user: root
   tasks:
-    - name: Check Glance cache has been wiped
-      stat:
-        path: "{{ marker_dir }}/glance-cache-cleanup.complete"
-      register: cache_cleaned
-
     - name: Wipe Glance cache directory
       shell: >
         find /var/lib/glance/cache/ -type f -exec rm {} \;
       register: cache_clean
       failed_when: cache_clean.rc not in [0, 1]
       changed_when: cache_clean.rc == 0
-      when: cache_cleaned.stat.exists == False
+      when: glance_cache_cleanup == False
 
-    - name: Mark Glance cache as cleaned
-      - file:
-          path: "{{ marker_dir }}/glance-cache-cleanup.complete"
-          state: touch
-          owner: root
-          mode: 0644
+- include: utility/marker/mark.yml
+  vars:
+    marker: "glance_cache_cleanup"
