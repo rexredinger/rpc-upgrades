@@ -182,9 +182,12 @@ function strip_install_steps {
 }
 
 function prepare_ocata {
+  OCATA_PREPPED=${OCATA_PREPPED:-false}"
+  if [ i"${OCATA_PREPPED}" == "true" ]; then return 0; fi
   pushd /opt/rpc-upgrades/incremental/playbooks
     openstack-ansible prepare-ocata-upgrade.yml
   popd
+  export OCATA_PREPPED="true"
 }
 
 function prepare_pike {
